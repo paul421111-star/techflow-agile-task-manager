@@ -9,19 +9,25 @@ Sistema fictício para acompanhar fluxo de trabalho em tempo real, priorizar tar
 
 ## 📌 Escopo (Versão 1)
 - API de tarefas: criar, listar, detalhar, atualizar, excluir  
-- Campos: `id`, `título`, `descrição`, `status` (A Fazer | Em Progresso | Concluído)  
+- Campos: `id`, `titulo`, `descricao`, `status` (A Fazer | Em Progresso | Concluído)
 
 ## 🧭 Metodologia
 - Kanban no GitHub Projects (colunas: A Fazer, Em Progresso, Concluído)  
 - Commits frequentes e descritivos  
 - Testes automatizados com Pytest + integração contínua via GitHub Actions
 
+---
+
 ## 🚀 Como Rodar Localmente
+
 ```bash
 python -m venv .venv
-# Ativar o ambiente virtual:
-# Windows: .venv\Scripts\activate
-# Linux/Mac: source .venv/bin/activate
+# Ativar ambiente virtual:
+# Windows
+.venv\Scripts\activate
+
+# Linux/Mac
+source .venv/bin/activate
 
 pip install -r requirements.txt
 uvicorn app:app --reload
