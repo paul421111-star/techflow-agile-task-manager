@@ -9,8 +9,11 @@ class Task(BaseModel):
     titulo: str = Field(min_length=1)
     descricao: Optional[str] = None
     status: str = Field(pattern="^(A Fazer|Em Progresso|Concluído)$")
+    prioridade: str = Field(
+        default="Média",
+        pattern="^(Alta|Média|Baixa)$"
+    )
 
-# banco em memória (apenas para fins didáticos)
 _db: List[Task] = []
 _seq = 1
 
@@ -19,9 +22,19 @@ def list_tasks():
     return _db
 
 @app.post("/tasks", response_model=Task, status_code=201)
-def create_task(titulo: str, descricao: Optional[str] = None):
+def create_task(
+    titulo: str,
+    descricao: Optional[str] = None,
+    prioridade: str = "Média"
+):
     global _seq
-    task = Task(id=_seq, titulo=titulo, descricao=descricao, status="A Fazer")
+    task = Task(
+        id=_seq,
+        titulo=titulo,
+        descricao=descricao,
+        status="A Fazer",
+        prioridade=prioridade
+    )
     _seq += 1
     _db.append(task)
     return task
@@ -39,6 +52,7 @@ def update_task(
     titulo: Optional[str] = None,
     descricao: Optional[str] = None,
     status: Optional[str] = None,
+    prioridade: Optional[str] = None
 ):
     for i, t in enumerate(_db):
         if t.id == task_id:
@@ -48,7 +62,9 @@ def update_task(
             if descricao is not None:
                 data["descricao"] = descricao
             if status is not None:
-                data["status"] = status  # valida pelo Field(pattern)
+                data["status"] = status
+            if prioridade is not None:
+                data["prioridade"] = prioridade
             new_t = Task(**data)
             _db[i] = new_t
             return new_t
