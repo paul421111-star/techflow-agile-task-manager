@@ -28,7 +28,7 @@ Sistema fictício para acompanhar fluxo de trabalho em tempo real, priorizar tar
 - Documentação atualizada para refletir a alteração
 
 
----
+----
 
 ## 🚀 Como Rodar Localmente
 
