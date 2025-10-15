@@ -28,3 +28,15 @@ def test_update_status_validation_and_delete():
 
     r2 = client.get("/tasks/2")
     assert r2.status_code == 404
+    
+def test_create_task_with_priority():
+    r = client.post("/tasks", params={"titulo": "Com prioridade", "prioridade": "Alta"})
+    assert r.status_code == 201
+    t = r.json()
+    assert t["prioridade"] == "Alta"
+
+def test_update_priority():
+    r = client.put("/tasks/1", params={"prioridade": "Baixa"})
+    assert r.status_code == 200
+    t = r.json()
+    assert t["prioridade"] == "Baixa"
